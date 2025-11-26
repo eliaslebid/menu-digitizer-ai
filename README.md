@@ -1,5 +1,7 @@
 # Menu AI Agent System
 
+> **Note**: The technical assignment document is located in the [`docs/`](./docs/) folder.
+
 A stateful multi-agent system for digitizing restaurant menus, identifying vegetarian options, and calculating totals. Built with Node.js, Express, LangChain, and ChromaDB.
 
 ## Architecture
