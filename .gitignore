@@ -53,3 +53,6 @@ htmlcov/
 data/*.csv
 data/*.json
 !data/.keep
+
+# Node modules
+node_modules/
