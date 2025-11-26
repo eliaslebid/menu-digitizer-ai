@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  web-app:
+    build:
+      context: .
+      dockerfile: services/web-app/Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:3000
+    volumes:
+      - ./services/web-app/src:/app/services/web-app/src
+      - ./packages/shared-types/src:/app/packages/shared-types/src
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: services/api-gateway/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    depends_on:
+      - mcp-agent
+    volumes:
+      - ./services/api-gateway/src:/app/services/api-gateway/src
+      - ./packages/shared-types/src:/app/packages/shared-types/src
+
+  mcp-agent:
+    build:
+      context: .
+      dockerfile: services/mcp-agent/Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LANGCHAIN_TRACING_V2=true
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY}
+      - LANGCHAIN_PROJECT=menu-ai-demo
+    depends_on:
+      - chromadb
+    volumes:
+      - ./services/mcp-agent/src:/app/services/mcp-agent/src
+      - ./packages/shared-types/src:/app/packages/shared-types/src
+
+  chromadb:
+    image: chromadb/chroma:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma-data:/chroma/chroma
+
+volumes:
+  chroma-data:

@@ -1,0 +1,27 @@
+{
+  "name": "mcp-agent",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "start:seed": "ts-node src/seed-rag.ts",
+    "dev": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "langchain": "^0.1.12",
+    "@langchain/openai": "^0.0.12",
+    "@langchain/community": "^0.0.26",
+    "chromadb": "^1.8.1",
+    "zod": "^3.22.4",
+    "@menu-ai/shared-types": "*"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/cors": "^2.8.17",
+    "typescript": "^5.3.3",
+    "ts-node": "^10.9.2"
+  }
+}
